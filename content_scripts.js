@@ -1,18 +1,22 @@
 
-chrome.extension.sendRequest({method: "getWords"}, function(wrd_response) {
-	var count = 0;
-	var words = wrd_response.words.split(',');
 
-	var items = $('*');
 
-	for (var i = items.length; i--;) {
-		if (items[i].tagName != "SCRIPT" && items[i].innerText) {
-			count += CheckWords(items[i], words);
+function CheckPage() {
+	chrome.extension.sendRequest({method: "getWords"}, function(wrd_response) {
+		var count = 0;
+		var words = wrd_response.words.split(',');
+
+		var items = $('*');
+
+		for (var i = items.length; i--;) {
+			if (items[i].tagName != "SCRIPT" && items[i].innerText) {
+				count += CheckWords(items[i], words);
+			}
 		}
-	}
 
-	chrome.extension.sendRequest({method: "setBadgeText", message:count.toString()}, function (response) {});
-});
+		chrome.extension.sendRequest({method: "setBadgeText", message:count.toString()}, function (response) {});
+	});
+}
 
 function CheckWords(item, words) {
 	var lower = $(item).justtext().toLowerCase();
@@ -36,3 +40,18 @@ $.fn.justtext = function() {
             .end()
             .text();
 };
+
+chrome.extension.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    
+    if (request.method == "checkPage") {
+		CheckPage();
+	}
+      sendResponse({});
+  });
+  
+
+$(document).ready(function () {
+	CheckPage();
+});
+
