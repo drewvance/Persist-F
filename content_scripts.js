@@ -20,7 +20,7 @@ function CheckWords(item, words) {
 
 	for (var i = words.length; i--;) {
 		if (lower.indexOf(words[i].toLowerCase()) >= 0) {
-			item.style.backgroundColor = "yellow";
+			$(item).css('background-color','yellow');
 			count++;
 		}
 	}
