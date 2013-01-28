@@ -11,3 +11,9 @@ chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
 			break;
 	}
 });
+
+
+chrome.tabs.onActivated.addListener(function(info) {
+	chrome.tabs.sendMessage(info.tabId , {method: "checkPage"}, function(response) {    
+	});		
+});
