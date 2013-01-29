@@ -1,5 +1,12 @@
 
+<<<<<<< HEAD
 
+=======
+chrome.extension.sendRequest({method: "getWords"}, function(wrd_response) {
+	var count = 0;
+	var words = wrd_response.words.split(',');
+	var items = $('body').find('*');
+>>>>>>> improved dom node query
 
 function CheckPage() {
 	chrome.extension.sendRequest({method: "getWords"}, function(wrd_response) {
