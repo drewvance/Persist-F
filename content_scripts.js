@@ -1,19 +1,11 @@
 
-<<<<<<< HEAD
-
-=======
-chrome.extension.sendRequest({method: "getWords"}, function(wrd_response) {
-	var count = 0;
-	var words = wrd_response.words.split(',');
-	var items = $('body').find('*');
->>>>>>> improved dom node query
 
 function CheckPage() {
 	chrome.extension.sendRequest({method: "getWords"}, function(wrd_response) {
 		var count = 0;
 		var words = wrd_response.words.split(',');
 
-		var items = $('*');
+		var items = $('body').find('*');
 
 		for (var i = items.length; i--;) {
 			if (items[i].tagName != "SCRIPT" && items[i].innerText) {
